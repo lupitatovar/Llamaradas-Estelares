@@ -1,5 +1,8 @@
 import numpy as np
 from scipy import special
+from scipy.stats import binned_statistic
+from Flare_Eqn import flare_eqn
+
 def flare_model(t,tpeak, fwhm, ampl, upsample=False, uptime=10):
     '''
     The Continuous Flare Model evaluated for single-peak (classical) flare events.
@@ -37,28 +40,18 @@ def flare_model(t,tpeak, fwhm, ampl, upsample=False, uptime=10):
 
     t_new = (t-tpeak)/fwhm
 
-
-    #Values were fit & calculated using MCMC 256 walkers and 30000 steps
-
-    A,B,C,D1,D2,f1 = [0.9687734504375167,-0.251299705922117,0.22675974948468916,0.15551880775110513,1.2150539528490194,0.12695865022878844]
-    A_err,B_err,C_err,D1_err,D2_err,f1_err = [0.007941622683556804,0.0004073709715788909,0.0006863488251125649,0.0013498012884345656,0.00453458098656645,0.001053149344530907 ]
-    f2 = 1-f1
     if upsample:
         dt = np.nanmedian(np.diff(np.abs(t_new)))
-        timeup = np.linspace(min(t_new)-dt, max(t_new)+dt, t_new.size * uptime)
+        timeup = np.linspace(min(t_new) - dt, max(t_new) + dt, t_new.size * uptime)
 
-        flareup = ((1/2) * np.sqrt(np.pi) * A * C * f1* np.exp(-D1*timeup+((B/C)+(D1*C/2))**2)*special.erfc(((B-timeup)/C)+ (C*D1/2)))
-        +((1/2) * np.sqrt(np.pi) * A * C * f2* np.exp(-D2*timeup+((B/C)+(D2*C/2))**2)*special.erfc(((B-timeup)/C) + (C*D2/2)))
+        flareup = flare_eqn(timeup,tpeak,fwhm,ampl)
 
         # and now downsample back to the original time...
-        ## this way uses "binned statistic"
-        downbins = np.concatenate((t_new-dt/2.,[max(t_new)+dt/2.]))
+
+        downbins = np.concatenate((t_new - dt / 2.,[max(t_new) + dt / 2.]))
         flare,_,_ = binned_statistic(timeup, flareup, statistic='mean',bins=downbins)
     else:
 
-        flare = ((1/2) * np.sqrt(np.pi) * A * C * f1* np.exp(-D1*t_new+((B/C)+(D1*C/2))**2)*
-                 special.erfc(((B-t_new)/C)+ (C*D1/2)))+((1/2) * np.sqrt(np.pi) * A * C * f2*
-                                                         np.exp(-D2*t_new+((B/C)+(D2*C/2))**2)*special.erfc(((B-t_new)/C) + (C*D2/2)))
-
+        flare = flare_eqn(t_new,tpeak,fwhm,ampl)
 
     return flare * ampl

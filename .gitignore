@@ -1,0 +1,10 @@
+__pycache__
+*/__pycache__
+*/*/__pycache__
+docs/_build
+build
+dist
+.DS_Store
+dist
+.cache/
+.ipynb_checkpoints
