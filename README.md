@@ -1,5 +1,5 @@
 # Llamaradas Estelares
-A flare template [Flare_Model.py] to model the morphology of white-light flare events. The shape of the flare model is parameterized by the convolution of a Gaussian and a double exponential [Flare_Eqn.py]. Meanwhile, the template can be parameterized by three parameters: amplitude, FWHM, and a center time.
+A flare template [Flare_model.py] to model the morphology of white-light flare events. The shape of the flare model is parameterized by the convolution of a Gaussian and a double exponential [Flare_Eqn.py]. Meanwhile, the template can be parameterized by three parameters: amplitude, FWHM, and a center time.
 
 
 ### Citation
