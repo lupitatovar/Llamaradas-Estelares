@@ -75,4 +75,4 @@ def flare_model(t,tpeak, fwhm, ampl, upsample=False, uptime=10):
 
         flare = flare_eqn(t_new,tpeak,fwhm,ampl)
 
-    return flare * ampl
+    return flare
