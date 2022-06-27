@@ -5,7 +5,7 @@ A flare template [Flare_model.py] to model the morphology of white-light flare e
 
 
 ### Citation
-If you use this flare model, please cite our paper: [Tovar Mendoza, et al. 2022 (AJ accepted)](http://arxiv.org/abs/2205.05706)
+If you use this flare model, please cite our paper: [Guadalupe Tovar Mendoza et al 2022 AJ 164 17](https://iopscience.iop.org/article/10.3847/1538-3881/ac6fe6)
 
 ### See Also
 
