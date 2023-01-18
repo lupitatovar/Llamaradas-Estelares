@@ -28,10 +28,11 @@ def flare_model(t,tpeak, fwhm, ampl, upsample=False, uptime=10):
     '''
     The Continuous Flare Model evaluated for single-peak (classical) flare events.
     Use this function for fitting classical flares with most curve_fit
-    tools.
+    tools. Reference: Tovar Mendoza et al. (2022) DOI 10.3847/1538-3881/ac6fe6
 
     References
     --------------
+    Tovar Mendoza et al. (2022) DOI 10.3847/1538-3881/ac6fe6
     Davenport et al. (2014) http://arxiv.org/abs/1411.3723
     Jackman et al. (2018) https://arxiv.org/abs/1804.03377
 
